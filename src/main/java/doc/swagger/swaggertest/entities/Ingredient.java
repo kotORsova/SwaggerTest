@@ -4,29 +4,21 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "roles")
-public class Role {
+@Table(name = "ingredients")
+public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private String name;
-
     @Transient
-    @ManyToMany(mappedBy = "user_roles")
-    private Set<User> users;
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Recipe> recipeSet;
 
-    public Role(String name) {
-        this.name = name;
-    }
-
-    public Role() {
-    }
-
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -36,5 +28,13 @@ public class Role {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<Recipe> getRecipeSet() {
+        return recipeSet;
+    }
+
+    public void setRecipeSet(Set<Recipe> recipeSet) {
+        this.recipeSet = recipeSet;
     }
 }
